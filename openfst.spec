@@ -10,6 +10,7 @@ Source0:        %{name}-beta-iupr.tar.bz2
 URL:		http://www.openfst.org/
 
 Group:          System/Libraries
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:        Apache
 BuildRequires:	chrpath
 
