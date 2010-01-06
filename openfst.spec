@@ -1,21 +1,17 @@
 %define name    openfst
-%define version 0.0.beta
-%define release %mkrel 4
+%define version 1.1
+%define release %mkrel 1
 
 Name:           %{name} 
 Summary:        Weighted finite-state transducer tools
 Version:        %{version} 
 Release:        %{release} 
-Source0:        %{name}-beta-iupr.tar.bz2
+Source0:        %{name}-%{version}.tar.gz
+Patch0:		openfst-1.1-fix-linking.patch
 URL:		http://www.openfst.org/
-
 Group:          System/Libraries
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 License:        Apache
-BuildRequires:	chrpath
-
-## Packager note:
-## This is the autoconf-enabled version produced at http://www.iupr.org/
 
 %description
 OpenFst is a library for constructing, combining, optimizing, and searching 
@@ -34,30 +30,30 @@ Group:          Development/C++
 %description    devel
 Static library and header files from %name.
 
-%prep 
-%setup -q -n %name/fst
+%prep
+%setup -q -n %name-%{version}
+%patch0 -p0
 
-%build 
+%build
 %configure2_5x
-%make OPT="$RPM_OPT_FLAGS"
+%make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p %buildroot/%_bindir
-mkdir -p %buildroot/%_libdir
+rm -rf %{buildroot}
 %makeinstall
-chrpath -d %buildroot/%_bindir/*
 
 %clean 
-rm -rf $RPM_BUILD_ROOT 
+rm -rf %{buildroot} 
 
 %files
 %defattr(-,root,root)
-%doc README* ChangeLog*
+%doc README COPYING AUTHORS NEWS
 %{_bindir}/*
+%{_libdir}/*.so.0*
 
 %files devel
 %defattr(-,root,root)
 %{_includedir}/fst
 %{_libdir}/*.so
 %{_libdir}/*.a
+%{_libdir}/*.la
