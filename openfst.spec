@@ -1,6 +1,6 @@
 %define name    openfst
 %define version 1.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 Name:           %{name} 
 Summary:        Weighted finite-state transducer tools
