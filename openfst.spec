@@ -1,8 +1,8 @@
 %define name    openfst
 %define version 1.1
-%define release %mkrel 2
+%define release %mkrel 3
 
-Name:           %{name} 
+Name:           %{name}
 Summary:        Weighted finite-state transducer tools
 Version:        %{version} 
 Release:        %{release} 
@@ -26,6 +26,7 @@ to be comprehensive, flexible, efficient and scale well to large problems.
 %package        devel
 Summary:        Development files from %name
 Group:          Development/C++
+Requires:	%{name} = %{version}
 
 %description    devel
 Static library and header files from %name.
