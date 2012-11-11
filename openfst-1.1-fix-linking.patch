@@ -1,0 +1,21 @@
+--- src/bin/Makefile.am	2009-02-01 20:40:50.000000000 +0100
++++ src/bin/Makefile.am~	2010-01-06 17:46:43.000000000 +0100
+@@ -4,6 +4,7 @@
+ lib_LTLIBRARIES = libfstmain.la
+ libfstmain_la_SOURCES = main.cc
+ libfstmain_la_LDFLAGS = -version-info 0:0:0
++libfstmain_la_LDADD = ../lib/libfst.la -ldl
+ 
+ bin_PROGRAMS = fstarcsort fstclosure fstcompile fstcompose fstconcat \
+ fstconnect fstconvert fstdeterminize fstdifference fstdraw fstencode \
+--- src/bin/Makefile.in	2009-03-21 04:35:44.000000000 +0100
++++ src/bin/Makefile.in~	2010-01-06 17:47:16.000000000 +0100
+@@ -65,7 +65,7 @@
+ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
+ libLTLIBRARIES_INSTALL = $(INSTALL)
+ LTLIBRARIES = $(lib_LTLIBRARIES)
+-libfstmain_la_LIBADD =
++libfstmain_la_LIBADD = ../lib/libfst.la -ldl
+ am_libfstmain_la_OBJECTS = main.lo
+ libfstmain_la_OBJECTS = $(am_libfstmain_la_OBJECTS)
+ libfstmain_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
