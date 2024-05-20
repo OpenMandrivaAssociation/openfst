@@ -1,17 +1,12 @@
-%define name    openfst
-%define version 1.1
-%define release %mkrel 3
-
-Name:           %{name}
+Name:           openfst
 Summary:        Weighted finite-state transducer tools
-Version:        %{version} 
-Release:        %{release} 
-Source0:        %{name}-%{version}.tar.gz
-Patch0:		openfst-1.1-fix-linking.patch
+Version:        1.8.3
+Release:        1
+Source0:        https://www.openfst.org/twiki/pub/FST/FstDownload/openfst-%{version}.tar.gz
 URL:		http://www.openfst.org/
 Group:          System/Libraries
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-License:        Apache
+License:        Apache-2.0
+BuildSystem:	autotools
 
 %description
 OpenFst is a library for constructing, combining, optimizing, and searching 
@@ -23,38 +18,12 @@ This library was developed at Google Research (M. Riley, J. Schalkwyk, W.
 Skut) and NYU's Courant Institute (C. Allauzen, M. Mohri). It is intended
 to be comprehensive, flexible, efficient and scale well to large problems.
 
-%package        devel
-Summary:        Development files from %name
-Group:          Development/C++
-Requires:	%{name} = %{version}
+%install -a
+%libpackages
 
-%description    devel
-Static library and header files from %name.
-
-%prep
-%setup -q -n %name-%{version}
-%patch0 -p0
-
-%build
-%configure2_5x
-%make
-
-%install
-rm -rf %{buildroot}
-%makeinstall
-
-%clean 
-rm -rf %{buildroot} 
+sed -i -e '/fst\/script\//d' %{specpartsdir}/%{mklibname -d fst}.specpart
+echo %{_includedir}/fst/script >>%{specpartsdir}/%{mklibname -d fstscript}.specpart
+sed -i -e '/^Group:/aRequires: %{mklibname -d fst} = %{EVRD}' %{specpartsdir}/%{mklibname -d fstscript}.specpart
 
 %files
-%defattr(-,root,root)
-%doc README COPYING AUTHORS NEWS
 %{_bindir}/*
-%{_libdir}/*.so.0*
-
-%files devel
-%defattr(-,root,root)
-%{_includedir}/fst
-%{_libdir}/*.so
-%{_libdir}/*.a
-%{_libdir}/*.la
