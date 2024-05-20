@@ -1,12 +1,18 @@
 Name:           openfst
 Summary:        Weighted finite-state transducer tools
 Version:        1.8.3
-Release:        1
+Release:        2
 Source0:        https://www.openfst.org/twiki/pub/FST/FstDownload/openfst-%{version}.tar.gz
 URL:		http://www.openfst.org/
 Group:          System/Libraries
 License:        Apache-2.0
+BuildRequires:	pkgconfig(python3)
 BuildSystem:	autotools
+BuildOption:	--enable-compress
+BuildOption:	--enable-fsts
+BuildOption:	--enable-grm
+BuildOption:	--enable-special
+BuildOption:	--enable-bin
 
 %description
 OpenFst is a library for constructing, combining, optimizing, and searching 
@@ -22,6 +28,7 @@ to be comprehensive, flexible, efficient and scale well to large problems.
 %libpackages
 
 sed -i -e '/fst\/script\//d' %{specpartsdir}/%{mklibname -d fst}.specpart
+echo '%{_libdir}/fst' >>%{specpartsdir}/%{mklibname -d fst}.specpart
 echo %{_includedir}/fst/script >>%{specpartsdir}/%{mklibname -d fstscript}.specpart
 sed -i -e '/^Group:/aRequires: %{mklibname -d fst} = %{EVRD}' %{specpartsdir}/%{mklibname -d fstscript}.specpart
 
