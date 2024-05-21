@@ -1,0 +1,24 @@
+diff -up openfst-1.8.3/src/extensions/ngram/nthbit.cc.omv~ openfst-1.8.3/src/extensions/ngram/nthbit.cc
+--- openfst-1.8.3/src/extensions/ngram/nthbit.cc.omv~	2024-05-21 17:18:51.249690237 +0200
++++ openfst-1.8.3/src/extensions/ngram/nthbit.cc	2024-05-21 17:18:58.889768102 +0200
+@@ -22,7 +22,7 @@
+ 
+ namespace fst {
+ 
+-#if !defined(__BMI2__)  // BMI2 has everything in the header
++#if !defined(__BMI2__) || !defined(__x86_64__)  // BMI2 has everything in the header
+ #if SIZE_MAX == UINT32_MAX
+ 
+ // 32-bit platforms will be slow when using 64-bit operations; use this
+diff -up openfst-1.8.3/src/include/fst/extensions/ngram/nthbit.h.omv~ openfst-1.8.3/src/include/fst/extensions/ngram/nthbit.h
+--- openfst-1.8.3/src/include/fst/extensions/ngram/nthbit.h.omv~	2024-05-21 17:18:19.149362995 +0200
++++ openfst-1.8.3/src/include/fst/extensions/ngram/nthbit.h	2024-05-21 17:18:31.201485875 +0200
+@@ -27,7 +27,7 @@
+ 
+ #include <fst/log.h>
+ 
+-#if defined(__BMI2__)  // Intel Bit Manipulation Instruction Set 2
++#if defined(__BMI2__) && defined(__x86_64__) // Intel Bit Manipulation Instruction Set 2
+ // PDEP requires BMI2; this is present starting with Haswell.
+ 
+ #include <immintrin.h>

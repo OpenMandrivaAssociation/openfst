@@ -1,3 +1,9 @@
+%ifarch %{x86_64}
+# openfst is used by vosk, which is used by
+# proton-experimental
+%bcond_without compat32
+%endif
+
 Name:           openfst
 Summary:        Weighted finite-state transducer tools
 Version:        1.8.3
@@ -13,6 +19,9 @@ BuildOption:	--enable-fsts
 BuildOption:	--enable-grm
 BuildOption:	--enable-special
 BuildOption:	--enable-bin
+
+%patchlist
+openfst-compile-on-x86_32.patch
 
 %description
 OpenFst is a library for constructing, combining, optimizing, and searching 
@@ -31,6 +40,14 @@ sed -i -e '/fst\/script\//d' %{specpartsdir}/%{mklibname -d fst}.specpart
 echo '%{_libdir}/fst' >>%{specpartsdir}/%{mklibname -d fst}.specpart
 echo %{_includedir}/fst/script >>%{specpartsdir}/%{mklibname -d fstscript}.specpart
 sed -i -e '/^Group:/aRequires: %{mklibname -d fst} = %{EVRD}' %{specpartsdir}/%{mklibname -d fstscript}.specpart
+
+%if %{with compat32}
+sed -i -e '/fst\/script\//d' %{specpartsdir}/%{mklib32name -d fst}.specpart
+echo '%{_prefix}/lib/fst' >>%{specpartsdir}/%{mklib32name -d fst}.specpart
+sed -i -e '/^Group:/aRequires: %{mklibname -d fst} = %{EVRD}' %{specpartsdir}/%{mklib32name -d fst}.specpart
+sed -i -e '/^Group:/aRequires: %{mklib32name -d fst} = %{EVRD}' %{specpartsdir}/%{mklib32name -d fstscript}.specpart
+sed -i -e '/^Group:/aRequires: %{mklibname -d fstscript} = %{EVRD}' %{specpartsdir}/%{mklib32name -d fstscript}.specpart
+%endif
 
 %files
 %{_bindir}/*
