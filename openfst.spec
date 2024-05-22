@@ -7,7 +7,7 @@
 Name:           openfst
 Summary:        Weighted finite-state transducer tools
 Version:        1.8.3
-Release:        2
+Release:        3
 Source0:        https://www.openfst.org/twiki/pub/FST/FstDownload/openfst-%{version}.tar.gz
 URL:		http://www.openfst.org/
 Group:          System/Libraries
