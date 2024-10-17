@@ -9,7 +9,7 @@ Summary:        Weighted finite-state transducer tools
 Version:        1.8.3
 Release:        3
 Source0:        https://www.openfst.org/twiki/pub/FST/FstDownload/openfst-%{version}.tar.gz
-URL:		http://www.openfst.org/
+URL:		https://www.openfst.org/
 Group:          System/Libraries
 License:        Apache-2.0
 BuildRequires:	pkgconfig(python3)
