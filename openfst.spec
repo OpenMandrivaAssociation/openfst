@@ -6,7 +6,7 @@
 
 Name:           openfst
 Summary:        Weighted finite-state transducer tools
-Version:        1.8.4
+Version:        1.8.5
 Release:        1
 Source0:        https://www.openfst.org/twiki/pub/FST/FstDownload/openfst-%{version}.tar.gz
 URL:		https://www.openfst.org/
@@ -21,7 +21,7 @@ BuildOption:	--enable-special
 BuildOption:	--enable-bin
 
 %patchlist
-openfst-compile-on-x86_32.patch
+# dropped (no longer applies): openfst-compile-on-x86_32.patch
 
 %description
 OpenFst is a library for constructing, combining, optimizing, and searching 
